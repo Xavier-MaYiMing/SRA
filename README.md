@@ -26,21 +26,20 @@
 | I1          | $I_{\epsilon+}$ indicator                            |
 | I2          | SDE indicator                                        |
 
-#### Test problem: LIR-CMOP6
+#### Test problem: DTLZ1
 
 $$
 \begin{aligned}
-& J_1=\{3, 5, \cdots, 29\}, J_2 = \{2, 4, \cdots, 30\} \\
-& g_1(x) = \sum_{i \in J_1} (x_i - \sin(0.5i\pi x_1/30))^2 \\
-& g_2(x) = \sum_{i \in J_2} (x_i - \cos(0.5i\pi x_1/30))^2 \\
-&\min \\
-& f_1(x) = x_1 + 10g_1(x) + 0.7057 \\
-& f_2(x) = 1 - x_1^2 + 10g_2(x) + 0.7057 \\
-& \text{subject to} \\
-& c_k(x) = ((f_1 - p_k)\cos\theta - (f_2 - q_k)\sin\theta)^2/a_k^2 + ((f_1 - p_k)\sin\theta - (f_2 - q_k)\cos\theta)^2/b_k^2 \geq r \\
-& p_k = [1.8, 2.8], \quad q_k = [1.8, 2.8], \quad a_k = [2, 2], \quad b_k = [8, 8], \quad k=1, 2 \\
-& r = 0.1, \quad \theta = -0.25 \pi \\
-& x_i \in [0, 1], \quad i = 1, \cdots, 30
+	& k = nvar - nobj + 1, \text{ the last $k$ variables is represented as $x_M$} \\
+	& g(x_M) = 100 \left[|x_M| + \sum_{x_i \in x_M}(x_i - 0.5)^2 - \cos(20\pi(x_i - 0.5)) \right] \\
+	& \min \\
+	& f_1(x) = \frac{1}{2}x_1x_2 \cdots x_{M - 1}(1 + g(x_M)) \\
+	& f_2(x) = \frac{1}{2}x_1x_2 \cdots (1 - x_{M - 1})(1 + g(x_M)) \\
+	& \vdots \\
+	& f_{M - 1}(x) = \frac{1}{2}x_1(1 - x_2)(1 + g(x_M)) \\
+	& f_M(x) = \frac{1}{2}(1 - x_1)(1 + g(x_M)) \\
+	& \text{subject to} \\
+	& x_i \in [0, 1], \quad \forall i = 1, \cdots, n
 \end{aligned}
 $$
 
